@@ -4,20 +4,18 @@
 # Contributor: BorgHunter <borghunter at gmail dot com>
 
 _name=urllib3
-pkgbase=python-urllib3
-pkgname=(python-urllib3 python-urllib3-doc)
+pkgname=python-urllib3
 pkgver=1.26.18
 pkgrel=1
 pkgdesc="HTTP library with thread-safe connection pooling and file post support"
 arch=("any")
 url="https://github.com/urllib3/urllib3"
 license=("MIT")
+depends=('python')
 makedepends=(
   'python-build'
   'python-installer'
   'python-setuptools'
-  'python-sphinx'
-  'python-sphinx-furo'
   'python-wheel'
 )
 checkdepends=(
@@ -36,7 +34,15 @@ checkdepends=(
   'python-tornado'
   'python-trustme'
 )
-source=("https://github.com/urllib3/urllib3/archive/$pkgver/$pkgbase-$pkgver.tar.gz")
+optdepends=(
+  'python-brotli: Brotli support'
+  'python-certifi: security support'
+  'python-cryptography: security support'
+  'python-idna: security support'
+  'python-pyopenssl: security support'
+  'python-pysocks: SOCKS support'
+)
+source=("https://github.com/urllib3/urllib3/archive/$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('62c0af4b11e797a85420ef3f0888f2e608334329eddd88b9fe563b5437189cbea8dbbcd53f999557d9828fcf4bf03b8ca9f6e3d401533bc4ae8ff96e3ece1557')
 
 prepare() {
@@ -47,9 +53,6 @@ prepare() {
 build() {
   cd $_name-$pkgver
   python -m build --wheel --no-isolation
-
-  cd docs
-  PYTHONPATH="../build/lib" make html
 }
 
 check() {
@@ -69,27 +72,8 @@ check() {
   pytest "${pytest_options[@]}"
 }
 
-package_python-urllib3() {
-  depends=('python')
-  optdepends=(
-    'python-brotli: Brotli support'
-    'python-certifi: security support'
-    'python-cryptography: security support'
-    'python-idna: security support'
-    'python-pyopenssl: security support'
-    'python-pysocks: SOCKS support'
-  )
-
+package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
-}
-
-package_python-urllib3-doc() {
-  pkgdesc="urllib3 Documentation"
-
-  cd $_name-$pkgver/docs
-  install -d "$pkgdir"/usr/share/doc
-  cp -r _build/html "$pkgdir"/usr/share/doc/python-urllib3
-  install -Dm644 ../LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
