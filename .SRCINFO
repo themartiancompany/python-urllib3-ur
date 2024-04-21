@@ -1,7 +1,7 @@
 pkgbase = python-urllib3
 	pkgdesc = HTTP library with thread-safe connection pooling and file post support
 	pkgver = 1.26.18
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/urllib3/urllib3
 	arch = any
 	license = MIT
@@ -14,7 +14,7 @@ pkgbase = python-urllib3
 	checkdepends = python-idna
 	checkdepends = python-pyopenssl
 	checkdepends = python-pysocks
-	checkdepends = python-pytest
+	checkdepends = python-pytest7
 	checkdepends = python-pytest-freezegun
 	checkdepends = python-pytest-timeout
 	checkdepends = python-tornado
