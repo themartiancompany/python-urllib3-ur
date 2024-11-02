@@ -23,14 +23,15 @@ pkgbase = python-urllib3
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
-	depends = python
+	depends = python>=3.12
+	depends = python<3.13
 	optdepends = python-brotli: Brotli support
 	optdepends = python-certifi: security support
 	optdepends = python-cryptography: security support
 	optdepends = python-idna: security support
 	optdepends = python-pyopenssl: security support
 	optdepends = python-pysocks: SOCKS support
-	source = https://github.com/urllib3/urllib3/archive/1.26.19/python-urllib3-1.26.19.tar.gz
+	source = urllib3-1.26.19::https://github.com/urllib3/urllib3/archive/1.26.19/python-urllib3-1.26.19.tar.gz
 	sha512sums = 6b72012dbd85434b2441229cbdea2a94583693f904dde349780e1290d581c8a5e10fe00a287a032ed1276349d0078b530f16a133e0f164dcea18105fa3dec79a
 
 pkgname = python-urllib3
